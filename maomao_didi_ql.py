@@ -61,78 +61,6 @@ get_time2 = '{} {}'.format(today, time2)
 get_time3 = '{} {}'.format(today, time3)
 get_time4 = '{} {}'.format(today, time4)
 
-pwd = os.path.dirname(os.path.abspath(__file__)) + os.sep
-path = pwd + "env.sh"
-tokens = ''
-token_re=''
-
-def printT(s):
-    print ("[【{0}】]: {1}".format (datetime.datetime.now ().strftime ("%Y-%m-%d %H:%M:%S"), s))
-    sys.stdout.flush ()
-
-def getEnvs(label):
-    try:
-        if label == 'True' or label == 'yes' or label == 'true' or label == 'Yes':
-            return True
-        elif label == 'False' or label == 'no' or label == 'false' or label == 'No':
-            return False
-    except:
-        pass
-    try:
-        if '.' in label:
-            return float(label)
-        elif '&' in label:
-            return label.split('&')
-        elif '@' in label:
-            return label.split('@')
-        else:
-            return int(label)
-    except:
-        return label
-
-
-##############      在pycharm测试ql环境用，实际用下面的代码运行      #########
-
-# with open(path, "r+", encoding="utf-8") as f:
-#    ck = f.read()
-#    tokens = ck
-#    if "Didi_jifen_token" in ck:
-#        r = re.compile (r'Didi_jifen_token="(.*?)"', re.M | re.S | re.I)
-#        tokens = r.findall(ck)
-#        tokens = tokens[0].split ('&')
-#        if len (tokens) == 1:
-#            Didi_jifen_token = tokens[0]
-#            tokens = ''
-#            # print(tokens)
-#            # tokens = cookies[3]
-#        else:
-#            pass
-#    printT ("已获取并使用ck环境 token")
-
-
-########################################################################
-
-if "Didi_token" in os.environ:
-    print(len(os.environ["Didi_token"]))
-    if len(os.environ["Didi_token"]) > 319:
-        tokens = os.environ["Didi_token"]
-        # tokens = tokens.split ('&')
-        # cookies = temporary[0]
-        printT("已获取并使用Env环境Didi_token")
-    else:
-        token_re = os.environ["Didi_token"]
-else:
-    print("检查变量Didi_token是否已填写")
-
-if tokens != '':
-    tokens = tokens.split('&')
-    if len(tokens) == 1:
-        token_re = tokens[0]
-    else:
-        pass
-
-
-
 wsgsig = [
     'dd03-vx9tq2onDp0IZqcYVoABxTjsa%2BXNwlstUQ6fOSmVa%2BX%2BZhfRmNkDw6zkAz0%2BZA8rsJ2%2BzMKjCoJLpecxVoEAOMK%2FBzf2SAJmXo6ax6Nre%2BnNYVNkX72aP6KjAJE',
     'dd03-67TGcdCHNXqCW0FVDMhX%2B%2F%2B650AFtbkyCIqj4r3350AEWfAm9TIW%2B9cKMnqEWXIwEPUQLAXc%2BWT0%2FiFqd1%2Fn%2Be36LslfUXIyD61n%2BAgNL096XnZxBMZUNl%2BN%2BXO',
@@ -160,7 +88,7 @@ wsgsig = [
     'dd03-DOgz5gRWq%2FAYTS%2F26v82Acsji9qzOZBC5z3Jdsjki9qyTxlJN4j8AcuVtqAyTLwA387cDDoXsrMxv2%2F5KKfKAfX%2Fs9HyTIYG8NK0BtnjrV5uZ5LDJvfKAWWUrq5',
     'dd03-kQNDYoKdpT7kl4cdP27UVJJBxMyj%2FNsaRxDm%2F4cGxMyilJf2Z2QtUQ3gSx7ilv8cT60pXuNdSwchtoc%2BPINqUJcETYN%2Fr7DdOSbqU3JgTO%2BqrRJEQP%2B%2FV%2BbfSTd',
     'dd03-RnANOxOD1Z3H9sJdnUHQlIrfJ2u%2Ben09kqMvqH%2FaJ2uN9jj1WEUokZZA4P3N9CubiAIsnPrD4OgMGgmNmd5plZPCN2NIF0zGlUBwqLxCNPNHaitCnE6xlZqa2ZA'
-]
+    ]
 
 sys.path.append('../../tmp')
 sys.path.append(os.path.abspath('.'))
@@ -171,32 +99,31 @@ except Exception as e:
 
 run_send = 'yes'  # yes或no, yes则启用通知推送服务
 
+with open(r'/ql/config/djangolog/diditoken.txt', 'r') as f1:
+    token = f1.read()
 
-#
-# with open(r'/ql/config/djangolog/diditoken.txt', 'r') as f1:
-#     token = f1.read()
 
-# pycharm目录
+#pycharm目录
 # with open(r'滴滴token.txt', 'r') as f1:
 #     token = f1.read()
 
 
 # 读取所有的token 给到tokenpro
-# tokenpro = re.findall(r'token=([^&]+)&', token)
+tokenpro = re.findall(r'token=([^&]+)&', token)
 
 
-# def getUniqueItems(iterable):
-#     seen = set()
-#     result = []
-#     for item in iterable:
-#         if item not in seen:
-#             seen.add(item)
-#             result.append(item)
-#     return result
+def getUniqueItems(iterable):
+    seen = set()
+    result = []
+    for item in iterable:
+        if item not in seen:
+            seen.add(item)
+            result.append(item)
+    return result
 
 
 # 将重复的token给到token_re （list形式）
-# token_re = getUniqueItems(tokenpro)
+token_re = getUniqueItems(tokenpro)
 
 
 ## 获取通知服务
@@ -362,6 +289,28 @@ def game(activity, token):
             msg('施肥料成功')
         else:
             msg('过段时间再来！')
+
+
+# def fertilizer(token):
+#     headers = {
+#         'Content-Type': 'application/json;charset=utf-8',
+#         'Origin': 'https://fine.diditaxi.com.cn',
+#         'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_4_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 didi.passenger/6.2.4 FusionKit/1.2.20 OffMode/0',
+#     }
+#     params = (
+#         ('wsgsig',
+#          'dd03-jms/j+O+nKsYgZmVoebaTKl3VRCzbSzySrpFvu/6VRCygOKmyFG9pKZLk4syg2CwQBR5S4TMl3pxBLNqoVjGpyxel4fXfIbxpljFvRO8r7yvf5GVuqW9vRw1loS'),
+#     )
+#     data = '{"count":1,"xbiz":"240301","prod_key":"didi-orchard","xpsid":"ffe8b988a2b347fa97560c751a7c51fd","dchn":"O9aM923","xoid":"S+cxEr+gQ862EyEv3cBWjQ","uid":"299067547479785","xenv":"passenger","xspm_from":"","xpsid_root":"ffe8b988a2b347fa97560c751a7c51fd","xpsid_from":"","xpsid_share":"","platform":1,"token":"%s"}' % token
+#
+#     response = requests.post('https://game.xiaojukeji.com/api/game/plant/fertilizer', headers=headers, params=params,
+#                              data=data, verify=False)
+#     data = json.loads(response.text)
+#
+#     if data['errmsg'] == 'success':
+#         msg('领取施肥🍜成功！！')
+#     else:
+#         msg('恭喜你，领取了个屁！！')
 
 
 '''
@@ -803,46 +752,46 @@ def main():
         xpsid = get_xpsid()
         get_pet_id(token, xpsid, wsgsig)
         game('sign', token)  # 这个是登陆
-        # time.sleep(3)
-        # shifei(token, xpsid, wsgsig)  # 先施肥，后浇水!
-        # time.sleep(3)
-        # game('watering', token)  # 这个是浇水
-        # time.sleep(3)
-        # game('recBucketWater', token)  # 不定时收取水滴
-        # time.sleep(3)
-        # game('receivePer', token)  # 不定时收取化肥
-        # time.sleep(3)
-        # game('recExtWater', token)  # 不定时收取水滴
-        # time.sleep(3)
-        # game('recCommonBox', token)  # 不定时收取宝箱
-        # time.sleep(3)
-        # game('heartbeatDog', token)  # 不定时施肥化肥
-        # time.sleep(3)
-        # xinshou(token)
-        # time.sleep(3)
-        # dailyBox(token)
-        # time.sleep(3)
-        # fandian(token, xpsid, wsgsig)
-        # time.sleep(3)
-        # liulan_chengzhang(token, xpsid, wsgsig)
-        # time.sleep(3)
-        # liulan_bus(token, xpsid, wsgsig)
-        # time.sleep(3)
-        # liuan_shaidan(token, xpsid, wsgsig)
-        # time.sleep(3)
-        # liuan_guding(token, xpsid, wsgsig)
-        # time.sleep(3)
-        # dianji_fruit(token, xpsid, wsgsig)
-        # time.sleep(3)
-        # do_study(token, xpsid, wsgsig)
-        # time.sleep(3)
-        # liulan_jifen(token, xpsid, wsgsig)
-        # time.sleep(3)
-        # share(token, xpsid, wsgsig)
-        # time.sleep(3)
-        # mazha(token, xpsid, wsgsig)
-        # time.sleep(3)
-        # get_award(token)
+        time.sleep(3)
+        shifei(token, xpsid, wsgsig)  # 先施肥，后浇水!
+        time.sleep(3)
+        game('watering', token)  # 这个是浇水
+        time.sleep(3)
+        game('recBucketWater', token)  # 不定时收取水滴
+        time.sleep(3)
+        game('receivePer', token)  # 不定时收取化肥
+        time.sleep(3)
+        game('recExtWater', token)  # 不定时收取水滴
+        time.sleep(3)
+        game('recCommonBox', token)  # 不定时收取宝箱
+        time.sleep(3)
+        game('heartbeatDog', token)  # 不定时施肥化肥
+        time.sleep(3)
+        xinshou(token)
+        time.sleep(3)
+        dailyBox(token)
+        time.sleep(3)
+        fandian(token, xpsid, wsgsig)
+        time.sleep(3)
+        liulan_chengzhang(token, xpsid, wsgsig)
+        time.sleep(3)
+        liulan_bus(token, xpsid, wsgsig)
+        time.sleep(3)
+        liuan_shaidan(token, xpsid, wsgsig)
+        time.sleep(3)
+        liuan_guding(token, xpsid, wsgsig)
+        time.sleep(3)
+        dianji_fruit(token, xpsid, wsgsig)
+        time.sleep(3)
+        do_study(token, xpsid, wsgsig)
+        time.sleep(3)
+        liulan_jifen(token, xpsid, wsgsig)
+        time.sleep(3)
+        share(token, xpsid, wsgsig)
+        time.sleep(3)
+        mazha(token, xpsid, wsgsig)
+        time.sleep(3)
+        get_award(token)
         msg('\n')
     if run_send == 'yes':
         send('滴滴快车🚗')  # 通知服务
