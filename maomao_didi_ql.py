@@ -424,22 +424,26 @@ def get_xpsid():
 
 # 获取小动物id
 def get_pet_id(token, xpsid, wsgsig):
-    url = f'https://game.xiaojukeji.com/api/game/plant/enter?wsgsig={wsgsig}'
-    heards = {
-        "user-agent": f"Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 didi.passenger/6.2.4 FusionKit/1.2.20 OffMode/0",
-        "Referer": "https://fine.didialift.com/",
-        "Host": "game.xiaojukeji.com",
-        "Origin": "https://fine.didialift.com",
-        "Accept-Language": "zh-CN,zh-Hans;q=0.9",
-        "D-Header-T": f"{token}",
-        "Content-Type": "application/json",
-    }
-    data = '{"xbiz":"240301","prod_key":"didi-orchard","xpsid":"' + f'{xpsid}' + r'","dchn":"O9aM923","xoid":"aA/iet7vTTmdKCRAgoHwyg","uid":"281474990465673","xenv":"passenger","xspm_from":"","xpsid_root":"' + f'{xpsid}' + r'","xpsid_from":"","xpsid_share":"","assist_type":0,"encode_uid":"","is_old_player":true,"platform":1,"token":"' + f'{token}' + r'"}'
-    response = requests.post(url=url, headers=heards, verify=False, data=data)
-    result = response.json()
-    # msg(result)
-    pet_id = result['data']['lam_uid']
-    return pet_id
+    try:
+        url = f'https://game.xiaojukeji.com/api/game/plant/enter?wsgsig={wsgsig}'
+        heards = {
+            "user-agent": f"Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 didi.passenger/6.2.4 FusionKit/1.2.20 OffMode/0",
+            "Referer": "https://fine.didialift.com/",
+            "Host": "game.xiaojukeji.com",
+            "Origin": "https://fine.didialift.com",
+            "Accept-Language": "zh-CN,zh-Hans;q=0.9",
+            "D-Header-T": f"{token}",
+            "Content-Type": "application/json",
+        }
+        data = '{"xbiz":"240301","prod_key":"didi-orchard","xpsid":"' + f'{xpsid}' + r'","dchn":"O9aM923","xoid":"aA/iet7vTTmdKCRAgoHwyg","uid":"281474990465673","xenv":"passenger","xspm_from":"","xpsid_root":"' + f'{xpsid}' + r'","xpsid_from":"","xpsid_share":"","assist_type":0,"encode_uid":"","is_old_player":true,"platform":1,"token":"' + f'{token}' + r'"}'
+        response = requests.post(url=url, headers=heards, verify=False, data=data)
+        result = response.json()
+        # msg(result)
+        pet_id = result['data']['lam_uid']
+        return pet_id
+    except:
+        pass
+
 
 
 # 访问公交车页面任务
