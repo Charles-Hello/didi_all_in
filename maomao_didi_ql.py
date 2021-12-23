@@ -5,7 +5,6 @@
 @File ：maomao_didi_ql.py
 @IDE ：PyCharm
 @Motto：ABC(Always Be Coding)
-
 """
 
 '''参考了zyf1118的浏览代码，感谢那位大佬！'''
@@ -18,24 +17,6 @@ new Env('滴滴水果一条龙');
 '''
 wsgsig 的值可以忽略
 https://game.xiaojukeji.com/api/game/plant/?????
-
-去施肥  fertilizer
-"count":1,
-
-
-化肥中水滴季度 dailyBox
-季度一次
-dailyBox
-"box_id":1,
-
-滴滴时间手机水滴💧recBucketWater  不定时
-滴滴时间化肥💧receivePer  不定时
-滴滴签到 sign   每日执行一次
-滴滴浇水 watering   每日多次
-每日领取水滴：recExtWater 每日执行一次
-
-个人信息   get/address
-
 '''
 import requests
 
