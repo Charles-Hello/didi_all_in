@@ -64,7 +64,7 @@ get_time4 = '{} {}'.format(today, time4)
 pwd = os.path.dirname(os.path.abspath(__file__)) + os.sep
 path = pwd + "env.sh"
 tokens = ''
-
+token_re=''
 
 def printT(s):
     print ("[【{0}】]: {1}".format (datetime.datetime.now ().strftime ("%Y-%m-%d %H:%M:%S"), s))
