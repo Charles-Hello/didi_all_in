@@ -422,7 +422,7 @@ def get_xpsid():
         msg("获取xpsid失败，可能是表达式错误")
 
 
-# 获取小动物id
+# 获取小动物_id
 def get_pet_id(token, xpsid, wsgsig):
     try:
         url = f'https://game.xiaojukeji.com/api/game/plant/enter?wsgsig={wsgsig}'
