@@ -524,6 +524,35 @@ def liuan_shaidan(token, xpsid, wsgsig):
         msg("浏览晒单区任务,任务早已完成，跳过执行环节")
 
 
+#浏览充值中心
+def liulan_chongzhi(token, xpsid, wsgsig):
+    wsgsig = wsgsig[random.randint(0, 25)]
+    url = f'https://game.xiaojukeji.com/api/game/mission/update?wsgsig={wsgsig}'
+    heards = {
+        "user-agent": f"Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 didi.passenger/6.2.4 FusionKit/1.2.20 OffMode/0",
+        "Referer": "https://fine.didialift.com/",
+        "Host": "game.xiaojukeji.com",
+        "Origin": "https://fine.didialift.com",
+        "Accept-Language": "zh-CN,zh-Hans;q=0.9",
+        "D-Header-T": f"{token}",
+        "Content-Type": "application/json",
+    }
+    data = r'{"xbiz":"240301","prod_key":"didi-orchard","xpsid":"' + f'{xpsid}' + r'","dchn":"O9aM923","xoid":"aA/iet7vTTmdKCRAgoHwyg","uid":"281474990465673","xenv":"passenger","xspm_from":"","xpsid_root":"' + f'{xpsid}' + r'","xpsid_from":"","xpsid_share":"","mission_id":41,"game_id":23,"platform":1,"token":"' + f'{token}' + r'"}'
+    response = requests.post(url=url, headers=heards, verify=False, data=data)
+    data = json.loads(response.text)
+    # msg(data)
+    errmsg = data['errmsg']
+    if errmsg == 'success':
+        msg("访问充值中心已完成")
+    else:
+        msg("访问充值中心任务早已完成，跳过执行环节")
+
+
+
+
+
+
+
 # 访问积分商城任务
 def liulan_jifen(token, xpsid, wsgsig):
     wsgsig = wsgsig[random.randint(0, 25)]
@@ -730,6 +759,14 @@ def shifei(token, xpsid, wsgsig):
             pass
 
 
+
+
+
+
+
+
+
+
 def main():
     msg(f'====================共{len(token_re)}滴滴快车🚗个账号Cookie=========\n')
     for e, token in enumerate(token_re):
@@ -757,6 +794,8 @@ def main():
         dailyBox(token)
         time.sleep(3)
         fandian(token, xpsid, wsgsig)
+        time.sleep(3)
+        liulan_chongzhi(token, xpsid, wsgsig)
         time.sleep(3)
         liulan_chengzhang(token, xpsid, wsgsig)
         time.sleep(3)
