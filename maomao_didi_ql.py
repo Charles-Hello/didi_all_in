@@ -80,17 +80,18 @@ except Exception as e:
 
 run_send = 'yes'  # yes或no, yes则启用通知推送服务
 
-with open(r'/ql/config/djangolog/diditoken.txt', 'r') as f1:
-    token = f1.read()
-
-
-#pycharm目录
-# with open(r'滴滴token.txt', 'r') as f1:
+# with open(r'/ql/config/djangolog/diditoken.txt', 'r') as f1:
 #     token = f1.read()
 
 
+# pycharm目录
+with open(r'滴滴token.txt', 'r') as f1:
+    token = f1.read()
+
+
 # 读取所有的token 给到tokenpro
-tokenpro = re.findall(r'token=([^&]+)&', token)
+
+token_re = re.findall('\"(.*)\"',token)
 
 
 def getUniqueItems(iterable):
@@ -104,7 +105,7 @@ def getUniqueItems(iterable):
 
 
 # 将重复的token给到token_re （list形式）
-token_re = getUniqueItems(tokenpro)
+token_re = getUniqueItems(token_re)
 
 
 ## 获取通知服务
@@ -235,7 +236,7 @@ def game(activity, token):
                     num = num + 1
 
             msg('结束浇水～辛苦你了💦')
-            if data['data']['pack_water'] == 100:
+            if data['data']['errmsg'] == '请先种一棵树吧' is True:
                 msg(a + '的水果成熟啦🎉！')
             else:
                 msg('当前水果🍉收成进度：' + ripe + "%")
