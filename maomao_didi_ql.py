@@ -80,13 +80,13 @@ except Exception as e:
 
 run_send = 'yes'  # yes或no, yes则启用通知推送服务
 
-# with open(r'/ql/config/djangolog/diditoken.txt', 'r') as f1:
-#     token = f1.read()
-
-
-# pycharm目录
-with open(r'滴滴token.txt', 'r') as f1:
+with open(r'/ql/config/djangolog/diditoken.txt', 'r') as f1:
     token = f1.read()
+
+
+# # pycharm目录
+# with open(r'滴滴token.txt', 'r') as f1:
+#     token = f1.read()
 
 
 # 读取所有的token 给到tokenpro
