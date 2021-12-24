@@ -111,7 +111,7 @@ def userinfo(token):
             print('失效账号删除成功')
         else:
             user_info = data['data']['name']
-            msg('村民'+user_info)
+            msg('村民'+user_info+"没失效")
     except:
         print('账号已经废了，正在执行删除操作')
         with open('12test', 'r') as r:
