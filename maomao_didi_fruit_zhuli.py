@@ -2,7 +2,7 @@
 """
 @Time ： 2021/12/24 12:54
 @Auth ： maomao
-@File ：maomao_didi_zhuli.py
+@File ：maomao_didi_fruit_zhuli.py
 @IDE ：PyCharm
 @Motto：ABC(Always Be Coding)
 
@@ -14,12 +14,7 @@ new Env('滴滴吸助力');
 '''
 
 
-'''
-token是工具人的
-'''
-'''
-ocrd_token是主人的
-'''
+
 import requests
 import json
 import re
@@ -34,7 +29,7 @@ run_send = 'yes'
 
 
 # with open('12test', 'r') as f2:
-#     a = f2.read()
+#     token = f2.read()
     
 '''———————————————————————pycharm环境——————————————————————————————'''
 
@@ -51,7 +46,7 @@ run_send = 'yes'
 '''———————————————————————ql环境——————————————————————————————'''
 
 with open(r'/ql/config/djangolog/diditoken.txt', 'r') as f2:
-    a = f2.read()
+    token = f2.read()
     
     
 '''———————————————————————ql环境——————————————————————————————'''
@@ -115,9 +110,14 @@ Msg().main()  # 初始化通知服务
 
 
 
+'''
+token是工具人的
+'''
+'''
+ocrd_token是主人的
+'''
 
-
-token_re = re.findall('\"(.*)\"',a)
+token_re = re.findall('\"(.*)\"',token)
 
 
 '''share_id和ocrd_token应该是变化的'''
@@ -159,9 +159,9 @@ def didi_zhuli(token, ocrd_token, share_id):
 
 
 def main():
-    for token in token_re:
+    for token in token_re[1]:
         didi_zhuli(token, ocrd_token, share_id)
-        
+
     if run_send == 'yes':
         send('滴滴快车🚗')  # 通知服务
 

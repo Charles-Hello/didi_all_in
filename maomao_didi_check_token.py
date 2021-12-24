@@ -26,9 +26,9 @@ requests.packages.urllib3.disable_warnings()
 
 
 with open(r'/ql/config/djangolog/diditoken.txt', 'r') as f2:
-    a = f2.read()
+    token = f2.read()
 
-token_re = re.findall('\"(.*)\"',a)
+token_re = re.findall('\"(.*)\"',token)
 # print(token_re)
 
 
