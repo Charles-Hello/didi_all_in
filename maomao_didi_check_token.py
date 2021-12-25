@@ -21,12 +21,23 @@ import os
 import sys
 requests.packages.urllib3.disable_warnings()
 
+'''———————————————————————pycharm环境——————————————————————————————'''
+
+# with open('12test', 'r') as f2:
+#     token = f2.read()
+
+'''———————————————————————pycharm环境——————————————————————————————'''
 
 
 
+
+'''———————————————————————ql环境——————————————————————————————'''
 
 with open(r'/ql/config/djangolog/diditoken.txt', 'r') as f2:
     token = f2.read()
+#
+
+'''———————————————————————ql环境——————————————————————————————'''
 
 token_re = re.findall('\"(.*)\"',token)
 # print(token_re)

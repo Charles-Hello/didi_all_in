@@ -578,6 +578,32 @@ def liulan_jifen(token, xpsid, wsgsig):
         msg("访问积分商城任务早已完成，跳过执行环节")
 
 
+# 访问代驾任务
+def liulan_daijia(token, xpsid, wsgsig):
+    wsgsig = wsgsig[random.randint(0, 25)]
+    url = f'https://game.xiaojukeji.com/api/game/mission/update?wsgsig={wsgsig}'
+    heards = {
+        "user-agent": f"Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 didi.passenger/6.2.4 FusionKit/1.2.20 OffMode/0",
+        "Referer": "https://fine.didialift.com/",
+        "Host": "game.xiaojukeji.com",
+        "Origin": "https://fine.didialift.com",
+        "Accept-Language": "zh-CN,zh-Hans;q=0.9",
+        "D-Header-T": f"{token}",
+        "Content-Type": "application/json",
+    }
+    data = r'{"xbiz":"240301","prod_key":"didi-orchard","xpsid":"' + f'{xpsid}' + r'","dchn":"O9aM923","xoid":"aA/iet7vTTmdKCRAgoHwyg","uid":"281474990465673","xenv":"passenger","xspm_from":"","xpsid_root":"' + f'{xpsid}' + r'","xpsid_from":"","xpsid_share":"","mission_id":43,"game_id":23,"platform":1,"token":"' + f'{token}' + r'"}'
+    response = requests.post(url=url, headers=heards, verify=False, data=data)
+    data = json.loads(response.text)
+    # msg(data)
+    errmsg = data['errmsg']
+    if errmsg == 'success':
+        msg("访问积分商城任务已完成")
+    else:
+        msg("访问积分商城任务早已完成，跳过执行环节")
+
+
+
+
 # 学会技能任务
 def do_study(token, xpsid, wsgsig):
     wsgsig = wsgsig[random.randint(0, 25)]
@@ -807,6 +833,8 @@ def main():
         liuan_guding(token, xpsid, wsgsig)
         time.sleep(3)
         dianji_fruit(token, xpsid, wsgsig)
+        time.sleep(3)
+        liulan_daijia(token, xpsid, wsgsig)
         time.sleep(3)
         do_study(token, xpsid, wsgsig)
         time.sleep(3)
