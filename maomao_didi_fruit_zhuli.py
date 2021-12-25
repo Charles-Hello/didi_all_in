@@ -7,6 +7,7 @@
 @Motto：ABC(Always Be Coding)
 
 """
+import time
 
 '''
 cron: 0 5 * * *
@@ -47,7 +48,7 @@ run_send = 'yes'
 
 with open(r'/ql/config/djangolog/diditoken.txt', 'r') as f2:
     token = f2.read()
-    
+#
     
 '''———————————————————————ql环境——————————————————————————————'''
 
@@ -150,16 +151,18 @@ def didi_zhuli(token, ocrd_token, share_id):
     json_str = json.dumps(data)
     response = requests.post('https://ut.xiaojukeji.com/ut/welfare/api/home/assist', headers=headers, data=json_str,
                              verify=False)
-    # msg(response.text)
+    msg(response.text)
 
     data = json.loads(response.text)
+    print(data)
+    time.sleep(4)
     result = data['data']['toast']
     msg(result)
 
 
 
 def main():
-    for token in token_re[1]:
+    for token in token_re[1:]:
         didi_zhuli(token, ocrd_token, share_id)
 
     if run_send == 'yes':
