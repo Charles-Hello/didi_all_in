@@ -69,7 +69,7 @@ wsgsig = [
     'dd03-DOgz5gRWq%2FAYTS%2F26v82Acsji9qzOZBC5z3Jdsjki9qyTxlJN4j8AcuVtqAyTLwA387cDDoXsrMxv2%2F5KKfKAfX%2Fs9HyTIYG8NK0BtnjrV5uZ5LDJvfKAWWUrq5',
     'dd03-kQNDYoKdpT7kl4cdP27UVJJBxMyj%2FNsaRxDm%2F4cGxMyilJf2Z2QtUQ3gSx7ilv8cT60pXuNdSwchtoc%2BPINqUJcETYN%2Fr7DdOSbqU3JgTO%2BqrRJEQP%2B%2FV%2BbfSTd',
     'dd03-RnANOxOD1Z3H9sJdnUHQlIrfJ2u%2Ben09kqMvqH%2FaJ2uN9jj1WEUokZZA4P3N9CubiAIsnPrD4OgMGgmNmd5plZPCN2NIF0zGlUBwqLxCNPNHaitCnE6xlZqa2ZA'
-    ]
+]
 
 sys.path.append('../../tmp')
 sys.path.append(os.path.abspath('.'))
@@ -80,18 +80,24 @@ except Exception as e:
 
 run_send = 'yes'  # yes或no, yes则启用通知推送服务
 
-with open(r'/ql/config/djangolog/diditoken.txt', 'r') as f1:
-    token = f1.read()
+'''———————————————————————pycharm环境——————————————————————————————'''
 
+with open('12test', 'r') as f2:
+    token = f2.read()
 
-# # pycharm目录
-# with open(r'滴滴token.txt', 'r') as f1:
-#     token = f1.read()
+'''———————————————————————pycharm环境——————————————————————————————'''
 
+'''———————————————————————ql环境——————————————————————————————'''
+
+# with open(r'/ql/config/djangolog/diditoken.txt', 'r') as f2:
+#     token = f2.read()
+#
+
+'''———————————————————————ql环境——————————————————————————————'''
 
 # 读取所有的token 给到tokenpro
 
-token_re = re.findall('\"(.*)\"',token)
+token_re = re.findall('\"(.*)\"', token)
 
 
 def getUniqueItems(iterable):
@@ -234,11 +240,12 @@ def game(activity, token):
                         headers=headers, data=data_water, verify=False)
                     # msg('正在执行第' + str(num) + '次浇水')
                     num = num + 1
-
+            # print(data)
             msg('结束浇水～辛苦你了💦')
-            if data['data']['errmsg'] == '请先种一棵树吧' is True:
-                msg(a + '的水果成熟啦🎉！')
-            else:
+            try:
+                if data['data']['errmsg'] == '请先种一棵树吧':
+                    msg(a + '的水果成熟啦🎉！')
+            except:
                 msg('当前水果🍉收成进度：' + ripe + "%")
         except:
             msg('当前账户水滴💧：' + data['errmsg'])
@@ -271,28 +278,6 @@ def game(activity, token):
             msg('施肥料成功')
         else:
             msg('过段时间再来！')
-
-
-# def fertilizer(token):
-#     headers = {
-#         'Content-Type': 'application/json;charset=utf-8',
-#         'Origin': 'https://fine.diditaxi.com.cn',
-#         'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_4_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 didi.passenger/6.2.4 FusionKit/1.2.20 OffMode/0',
-#     }
-#     params = (
-#         ('wsgsig',
-#          'dd03-jms/j+O+nKsYgZmVoebaTKl3VRCzbSzySrpFvu/6VRCygOKmyFG9pKZLk4syg2CwQBR5S4TMl3pxBLNqoVjGpyxel4fXfIbxpljFvRO8r7yvf5GVuqW9vRw1loS'),
-#     )
-#     data = '{"count":1,"xbiz":"240301","prod_key":"didi-orchard","xpsid":"ffe8b988a2b347fa97560c751a7c51fd","dchn":"O9aM923","xoid":"S+cxEr+gQ862EyEv3cBWjQ","uid":"299067547479785","xenv":"passenger","xspm_from":"","xpsid_root":"ffe8b988a2b347fa97560c751a7c51fd","xpsid_from":"","xpsid_share":"","platform":1,"token":"%s"}' % token
-#
-#     response = requests.post('https://game.xiaojukeji.com/api/game/plant/fertilizer', headers=headers, params=params,
-#                              data=data, verify=False)
-#     data = json.loads(response.text)
-#
-#     if data['errmsg'] == 'success':
-#         msg('领取施肥🍜成功！！')
-#     else:
-#         msg('恭喜你，领取了个屁！！')
 
 
 '''
@@ -427,7 +412,6 @@ def get_pet_id(token, xpsid, wsgsig):
         pass
 
 
-
 # 访问公交车页面任务
 def liulan_bus(token, xpsid, wsgsig):
     wsgsig = wsgsig[random.randint(0, 25)]
@@ -525,7 +509,7 @@ def liuan_shaidan(token, xpsid, wsgsig):
         msg("浏览晒单区任务,任务早已完成，跳过执行环节")
 
 
-#浏览充值中心
+# 浏览充值中心
 def liulan_chongzhi(token, xpsid, wsgsig):
     wsgsig = wsgsig[random.randint(0, 25)]
     url = f'https://game.xiaojukeji.com/api/game/mission/update?wsgsig={wsgsig}'
@@ -547,11 +531,6 @@ def liulan_chongzhi(token, xpsid, wsgsig):
         msg("访问充值中心已完成")
     else:
         msg("访问充值中心任务早已完成，跳过执行环节")
-
-
-
-
-
 
 
 # 访问积分商城任务
@@ -600,8 +579,6 @@ def liulan_daijia(token, xpsid, wsgsig):
         msg("访问积分商城任务已完成")
     else:
         msg("访问积分商城任务早已完成，跳过执行环节")
-
-
 
 
 # 学会技能任务
@@ -786,17 +763,9 @@ def shifei(token, xpsid, wsgsig):
             pass
 
 
-
-
-
-
-
-
-
-
 def main():
     msg(f'====================共{len(token_re)}滴滴快车🚗个账号Cookie=========\n')
-    for e, token in enumerate(token_re):
+    for e, token in enumerate(token_re[4:]):
         msg(f'******开始【账号 {e + 1}】 {userinfo(token)} *********\n')
         xpsid = get_xpsid()
         get_pet_id(token, xpsid, wsgsig)
