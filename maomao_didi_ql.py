@@ -81,16 +81,16 @@ except Exception as e:
 run_send = 'yes'  # yes或no, yes则启用通知推送服务
 
 '''———————————————————————pycharm环境——————————————————————————————'''
-
-with open('12test', 'r') as f2:
-    token = f2.read()
+#
+# with open('12test', 'r') as f2:
+#     token = f2.read()
 
 '''———————————————————————pycharm环境——————————————————————————————'''
 
 '''———————————————————————ql环境——————————————————————————————'''
 
-# with open(r'/ql/config/djangolog/diditoken.txt', 'r') as f2:
-#     token = f2.read()
+with open(r'/ql/config/djangolog/diditoken.txt', 'r') as f2:
+    token = f2.read()
 #
 
 '''———————————————————————ql环境——————————————————————————————'''
