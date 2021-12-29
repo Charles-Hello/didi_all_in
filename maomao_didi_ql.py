@@ -765,7 +765,7 @@ def shifei(token, xpsid, wsgsig):
 
 def main():
     msg(f'====================共{len(token_re)}滴滴快车🚗个账号Cookie=========\n')
-    for e, token in enumerate(token_re[4:]):
+    for e, token in enumerate(token_re):
         msg(f'******开始【账号 {e + 1}】 {userinfo(token)} *********\n')
         xpsid = get_xpsid()
         get_pet_id(token, xpsid, wsgsig)
