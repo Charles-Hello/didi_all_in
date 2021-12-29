@@ -113,9 +113,9 @@ def userinfo(token):
 
         if data['errmsg'] == '查不到用户' :
             print('账号已经失效，正在执行删除操作')
-            with open('12test', 'r') as r:
+            with open(r'/ql/config/djangolog/diditoken.txt', 'r') as r:
                 lines = r.readlines()
-            with open('12test', 'w') as w:
+            with open(r'/ql/config/djangolog/diditoken.txt', 'w') as w:
                 for l in lines:
                     if token not in l:
                         w.write(l)
@@ -125,9 +125,9 @@ def userinfo(token):
             msg('村民'+user_info+"没失效")
     except:
         print('账号已经废了，正在执行删除操作')
-        with open('12test', 'r') as r:
+        with open(r'/ql/config/djangolog/diditoken.txt', 'r') as r:
             lines = r.readlines()
-        with open('12test', 'w') as w:
+        with open(r'/ql/config/djangolog/diditoken.txt', 'w') as w:
             for l in lines:
                 if token not in l:
                     w.write(l)
