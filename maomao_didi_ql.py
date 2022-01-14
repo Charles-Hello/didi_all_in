@@ -761,7 +761,23 @@ def shifei(token, xpsid, wsgsig):
             msg('施肥成功！')
         else:
             pass
-
+def lottery(token, xpsid, wsgsig):
+    for i in range(4):
+        id = wsgsig[random.randint(0, 25)]
+        url = f'https://game.xiaojukeji.com/api/game/plant/lottery?wsgsig={id}'
+        heards = {
+            "user-agent": f"Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 didi.passenger/6.2.4 FusionKit/1.2.20 OffMode/0",
+            "Referer": "https://fine.didialift.com/",
+            "Host": "game.xiaojukeji.com",
+            "Origin": "https://fine.didialift.com",
+            "Accept-Language": "zh-CN,zh-Hans;q=0.9",
+            "D-Header-T": f"{token}",
+            "Content-Type": "application/json",
+        }
+        data = r'{"xbiz":"240301","prod_key":"didi-orchard","xpsid":"' + f'{xpsid}' + r'","dchn":"O9aM923","xoid":"aA/iet7vTTmdKCRAgoHwyg","uid":"281474990465673","xenv":"passenger","xspm_from":"","xpsid_root":"' + f'{xpsid}' + r'","xpsid_from":"","xpsid_share":"","count":1,"platform":1,"token":"' + f'{token}' + r'"}'
+        response = requests.post(url=url, headers=heards, verify=False, data=data)
+        result = response.json()
+        msg(result)
 
 def main():
     msg(f'====================共{len(token_re)}滴滴快车🚗个账号Cookie=========\n')
@@ -814,6 +830,8 @@ def main():
         mazha(token, xpsid, wsgsig)
         time.sleep(3)
         get_award(token)
+        time.sleep(3)
+        lottery(token, xpsid, wsgsig)
         msg('\n')
     if run_send == 'yes':
         send('滴滴快车🚗')  # 通知服务
