@@ -10,7 +10,7 @@
 '''参考了zyf1118的浏览代码，感谢那位大佬！'''
 
 '''
-cron: 0 0-23/1 * * *
+cron: 0 0-23/2 * * *
 new Env('滴滴水果一条龙');
 '''
 
@@ -786,51 +786,51 @@ def main():
         xpsid = get_xpsid()
         get_pet_id(token, xpsid, wsgsig)
         game('sign', token)  # 这个是登陆
-        time.sleep(3)
+        time.sleep(10)
         shifei(token, xpsid, wsgsig)  # 先施肥，后浇水!
-        time.sleep(3)
+        time.sleep(10)
         game('watering', token)  # 这个是浇水
-        time.sleep(3)
+        time.sleep(10)
         game('recBucketWater', token)  # 不定时收取水滴
-        time.sleep(3)
+        time.sleep(10)
         game('receivePer', token)  # 不定时收取化肥
-        time.sleep(3)
+        time.sleep(10)
         game('recExtWater', token)  # 不定时收取水滴
-        time.sleep(3)
+        time.sleep(10)
         game('recCommonBox', token)  # 不定时收取宝箱
-        time.sleep(3)
+        time.sleep(10)
         game('heartbeatDog', token)  # 不定时施肥化肥
-        time.sleep(3)
+        time.sleep(10)
         xinshou(token)
-        time.sleep(3)
+        time.sleep(10)
         dailyBox(token)
-        time.sleep(3)
+        time.sleep(10)
         fandian(token, xpsid, wsgsig)
-        time.sleep(3)
+        time.sleep(10)
         liulan_chongzhi(token, xpsid, wsgsig)
-        time.sleep(3)
+        time.sleep(10)
         liulan_chengzhang(token, xpsid, wsgsig)
-        time.sleep(3)
+        time.sleep(10)
         liulan_bus(token, xpsid, wsgsig)
-        time.sleep(3)
+        time.sleep(10)
         liuan_shaidan(token, xpsid, wsgsig)
-        time.sleep(3)
+        time.sleep(10)
         liuan_guding(token, xpsid, wsgsig)
-        time.sleep(3)
+        time.sleep(10)
         dianji_fruit(token, xpsid, wsgsig)
-        time.sleep(3)
+        time.sleep(10)
         liulan_daijia(token, xpsid, wsgsig)
-        time.sleep(3)
+        time.sleep(10)
         do_study(token, xpsid, wsgsig)
-        time.sleep(3)
+        time.sleep(10)
         liulan_jifen(token, xpsid, wsgsig)
-        time.sleep(3)
+        time.sleep(10)
         share(token, xpsid, wsgsig)
-        time.sleep(3)
+        time.sleep(10)
         mazha(token, xpsid, wsgsig)
-        time.sleep(3)
+        time.sleep(10)
         get_award(token)
-        time.sleep(3)
+        time.sleep(10)
         lottery(token, xpsid, wsgsig)
         msg('\n')
     if run_send == 'yes':
