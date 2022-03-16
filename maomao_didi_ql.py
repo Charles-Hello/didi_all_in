@@ -10,7 +10,7 @@
 '''参考了zyf1118的浏览代码，感谢那位大佬！'''
 
 '''
-cron: 0 0-23/2 * * *
+cron: 0 0-23/1 * * *
 new Env('滴滴水果一条龙');
 '''
 
@@ -25,12 +25,9 @@ import re
 import json
 import os
 import sys
-
 import datetime
 import time
-
 import random
-
 nowtime = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f8')
 today = datetime.datetime.now().strftime('%Y-%m-%d')
 time1 = '08:00:00.00000000'
@@ -88,7 +85,7 @@ run_send = 'yes'  # yes或no, yes则启用通知推送服务
 '''———————————————————————pycharm环境——————————————————————————————'''
 
 '''———————————————————————ql环境——————————————————————————————'''
-
+#
 with open(r'/ql/config/djangolog/diditoken.txt', 'r') as f2:
     token = f2.read()
 #
@@ -278,8 +275,7 @@ def game(activity, token):
             msg('施肥料成功')
         else:
             msg('过段时间再来！')
-
-
+    return data['errmsg']
 '''
 季度一次
 dailyBox
@@ -739,7 +735,6 @@ def fandian(token, xpsid, wsgsig):
 def shifei(token, xpsid, wsgsig):
     for i in range(3):
         id = wsgsig[random.randint(0, 25)]
-        nowtime = int(round(time.time() * 1000))
         url = f'https://game.xiaojukeji.com/api/game/plant/fertilizer?wsgsig={id}'
         heards = {
             "user-agent": f"Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 didi.passenger/6.2.4 FusionKit/1.2.20 OffMode/0",
@@ -761,6 +756,8 @@ def shifei(token, xpsid, wsgsig):
             msg('施肥成功！')
         else:
             pass
+
+
 def lottery(token, xpsid, wsgsig):
     for i in range(4):
         id = wsgsig[random.randint(0, 25)]
@@ -779,6 +776,7 @@ def lottery(token, xpsid, wsgsig):
         result = response.json()
         msg(result)
 
+
 def main():
     msg(f'====================共{len(token_re)}滴滴快车🚗个账号Cookie=========\n')
     for e, token in enumerate(token_re):
@@ -790,6 +788,16 @@ def main():
         shifei(token, xpsid, wsgsig)  # 先施肥，后浇水!
         time.sleep(10)
         game('watering', token)  # 这个是浇水
+        if game('watering', token) == '查不到用户':
+            with open(r'/ql/config/djangolog/diditoken.txt',
+                      'r') as f2:
+                tokenpro = f2.read()
+                gg = re.findall(f'.*{token}.*',tokenpro)[0]
+                tokenpro = tokenpro.replace(gg,'')
+            with open(r'/ql/config/djangolog/diditoken.txt',
+                      'w') as f3:
+                f3.write(tokenpro)
+            return
         time.sleep(10)
         game('recBucketWater', token)  # 不定时收取水滴
         time.sleep(10)
