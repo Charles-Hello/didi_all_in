@@ -797,7 +797,8 @@ def main():
             with open(r'/ql/config/djangolog/diditoken.txt',
                       'w') as f3:
                 f3.write(tokenpro)
-            return
+            msg('正在删除此用户！')
+            continue
         time.sleep(10)
         game('recBucketWater', token)  # 不定时收取水滴
         time.sleep(10)
